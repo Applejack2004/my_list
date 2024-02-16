@@ -21,14 +21,14 @@ public:
 		pos = -1;
 		len = 0;
 	}; //Конструктор по умолчанию
-	void Reset()//переставляет pCurr на начало
+	inline void Reset()//переставляет pCurr на начало
 	{
 		pCurr = pFirst;
 		pPr = pStop;
 		pos = 0;
 
 	}
-	void GoNext()// передвигает pCurr на следующий элемент
+	inline void GoNext()// передвигает pCurr на следующий элемент
 	{
 		if (pCurr != pStop)
 		{
@@ -39,14 +39,14 @@ public:
 		}
 		else
 		{
-			std::throw "Error,List is empty.";
+			throw "This List is empty or current is not detected!";
 		}
 	}
-	bool IsEnd()//Проверка на тоЮ прошли ли до конца контейнера
+	inline bool IsEnd()//Проверка на тоЮ прошли ли до конца контейнера
 	{
 		return (pStop == pCurr);
 	}
-	void DelList()//метод для очищения списка
+	inline void DelList()//метод для очищения списка
 	{
 		TNode<T>* tmp;
 		while (pFirst != pStop)
@@ -55,6 +55,8 @@ public:
 			pFirst = pFirst->pNext;
 			delete tmp;
 		}
+		len = 0;
+		pos = -1;
 	}
 	~TList() { DelList(); }; //Деструктор
 	TList(const TList<T>& list_object)//Конструктор копирования
@@ -79,10 +81,9 @@ public:
 			tmp = tmp->pNext;
 		}
 		len = list_object.len;
-		pCurr = pFirst;
-		pPr = pStop;
+		Reset();
 	}
-	void InsCurr(T _val)
+	inline void InsCurr(T _val)
 	{
 		if (len == 0)
 		{
@@ -92,7 +93,7 @@ public:
 		{
 			InsFirst(_val);
 		}
-		if (pCurr == pStop && pPr = pLast)
+		if (pCurr == pStop && pPr == pLast)
 		{
 			InsLast(_val);
 
@@ -110,12 +111,153 @@ public:
 		}
 	}
 
-	void InsFirst(const T& _val)
+	inline void InsFirst(const T& _val)
 	{
-		TNode<T>* tmp = new TNode<T>;
-		tmp->value = _val;
-		tmp->pNext = pFirst;//////
-		pFirst = tmp;
+		if (pFirst == pStop)
+		{
+			TNode<T>* tmp = new TNode<T>;
+			tmp->value = _val;
+			tmp->pNext = pFirst;//////
+			pFirst = tmp;
+			pLast = tmp;
+			len++;
+		}
+		else
+		{
+			TNode<T>* tmp = new TNode<T>;
+			tmp->value = _val;
+			tmp->pNext = pFirst;//////
+			pFirst = tmp;
+			len++;
+		}
+	
+	}
+	void InsLast(const T& _val)
+	{
+		if (pFirst == pStop)
+		{
+			InsFirst(_val);
+		}
+		else
+		{
+			TNode<T>* tmp = new TNode<T>;
+			tmp->value = _val;
+			pLast->pNext = tmp;
+			pLast = tmp;
+			tmp->pNext = pStop;
+			len++;
+		}
+	}
+	T Get_First()
+	{
+		return pFirst->value;
+	}
+	T Get_Last()
+	{
+		return pLast->value;
+	}
+	T Get_pos()
+	{
+		return pos;
+	}
+	T Get_length()
+	{
+		return len;
+	}
+	bool Is_Empty()
+	{
+		return (pFirst == pStop);
+	}
+	inline void DelCurr()
+	{
+		if (pCurr == pFirst)
+		{
+			DelFirst();
+		}
+		if (pCurr == pLast)
+		{
+			TNode<T>* tmp = pCurr;
+			pCurr = pCurr->pNext;
+			pPr->pNext = pCurr;
+			pLast = pPr;
+			delete tmp;
+			len--;
+
+		}
+		if (pCurr != pStop)
+		{
+			
+			TNode<T>* tmp = pCurr;
+			pCurr = pCurr->pNext;
+			pPr->pNext = pCurr;
+			delete tmp;
+			len--;
+
+		}
+		else
+		{
+			throw "This List is empty!";
+		}
+
+	}
+	 inline void DelFirst()
+	{
+		if (pFirst != pStop)
+		{
+			TNode<T>* tmp = pFirst;
+			pFirst = pFirst->pNext;
+			delete tmp;
+			len--;
+		}
+		else
+		{
+			throw "This List is empty!";
+
+		}
+	}
+	inline TList<T>& operator=(const TList<T>& list_object)
+	{
+		if (list_object.pFirst == nullptr)
+		{
+			DelList();
+		}
+		else
+		{
+			DelList();
+			TNode<T>* tmp = list_object.pFirst, * curr;
+			while (tmp != nullptr)
+			{
+				curr = new TNode<T>;
+				curr->value = tmp->value;
+				if (pFirst == nullptr)
+				{
+					pFirst = curr;
+					pLast = curr;
+				}
+				else
+				{
+					pLast->pNext = curr;
+					pLast = curr;
+				}
+				tmp = tmp->pNext;
+			}
+			len = list_object.len;
+			pos = 0;
+			Reset();
+		}
+		return *this;
+	}
+	inline void setPos(int _pos)
+	{
+		if (_pos < 0 || _pos >= len)
+		{
+			throw "В списке нет такой позиции!";
+		}
+        Reset();
+		for (int i = 0; i < _pos; ++i)
+		{
+			GoNext();
+		}
 	}
 
 };
