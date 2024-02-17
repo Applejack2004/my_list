@@ -89,25 +89,31 @@ public:
 		{
 			InsFirst(_val);
 		}
-		if (pCurr == pFirst)
-		{
-			InsFirst(_val);
-		}
-		if (pCurr == pStop && pPr == pLast)
-		{
-			InsLast(_val);
-
-		}
 		else
 		{
+			if (pCurr == pFirst)
+			{
+				InsFirst(_val);
+			}
+			else
+			{ 
+			  if (pCurr == pStop && pPr == pLast)
+			  {
+				InsLast(_val);
 
-			TNode<T>* tmp = new TNode<T>;
-			tmp->value = _val;
-			pPr->pNext = tmp;
-			tmp->pNext = pCurr;
-			pPr = tmp;
-			len++;
-			pos++;
+			  }
+			  else
+			  {
+
+				TNode<T>* tmp = new TNode<T>;
+				tmp->value = _val;
+				pPr->pNext = tmp;
+				tmp->pNext = pCurr;
+				pPr = tmp;
+				len++;
+				pos++;
+			  }
+			}
 		}
 	}
 
@@ -131,6 +137,21 @@ public:
 			len++;
 		}
 	
+	}
+	T Get_pos_value(int ind)
+	{
+		if (ind >= len && ind < 0)
+		{
+			throw "Bad index";
+		}
+		Reset();
+		
+		while ( ind != pos)
+		{
+			GoNext();
+
+		}
+		return (pCurr->value);
 	}
 	void InsLast(const T& _val)
 	{
@@ -174,29 +195,36 @@ public:
 		{
 			DelFirst();
 		}
-		if (pCurr == pLast)
-		{
-			TNode<T>* tmp = pCurr;
-			pCurr = pCurr->pNext;
-			pPr->pNext = pCurr;
-			pLast = pPr;
-			delete tmp;
-			len--;
-
-		}
-		if (pCurr != pStop)
-		{
-			
-			TNode<T>* tmp = pCurr;
-			pCurr = pCurr->pNext;
-			pPr->pNext = pCurr;
-			delete tmp;
-			len--;
-
-		}
 		else
+
 		{
-			throw "This List is empty!";
+			if (pCurr == pLast)
+			{
+				TNode<T>* tmp = pCurr;
+				pCurr = pCurr->pNext;
+				pPr->pNext = pCurr;
+				pLast = pPr;
+				delete tmp;
+				len--;
+
+			}
+			else
+			{
+				if (pCurr != pStop)
+				{
+
+					TNode<T>* tmp = pCurr;
+					pCurr = pCurr->pNext;
+					pPr->pNext = pCurr;
+					delete tmp;
+					len--;
+
+				}
+				else
+				{
+					throw "Error";
+				}
+			}
 		}
 
 	}

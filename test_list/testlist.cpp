@@ -117,7 +117,7 @@ TEST(TList, can_delete_list)
     EXPECT_EQ(list_project.Get_length(), 0);
     EXPECT_EQ(list_project.Is_Empty(), 1);
 }
-TEST(TList, can_insert_first_by_DelCurr)
+TEST(TList, can_insert_first_by_InsCurr)
 {
     TList<int> list_project;
     int value;
@@ -132,6 +132,84 @@ TEST(TList, can_insert_first_by_DelCurr)
 
     EXPECT_EQ(0, value);
 }
+TEST(TList, can_insert_in_center_by_InsCurr)
+{
+    TList<int> list_project;
+    int value;
+    list_project.InsFirst(1);
+    list_project.InsLast(2);
+    list_project.InsLast(3);
+    list_project.setPos(1);
+    ASSERT_NO_THROW(list_project.InsCurr(4));
+    value = list_project.Get_pos_value(1);
 
 
+
+
+    EXPECT_EQ(4, value);
+}
+TEST(TList, can_insert_in_end_by_InsCurr)
+{
+    TList<int> list_project;
+    int value;
+    list_project.InsFirst(1);
+    list_project.InsLast(2);
+    list_project.InsLast(3);
+    list_project.setPos(2);
+    ASSERT_NO_THROW(list_project.InsCurr(4));
+    value = list_project.Get_pos_value(2);
+
+
+
+
+    EXPECT_EQ(4, value);
+}
+TEST(TList, can_delete_first_by_DelCurr)
+{
+    TList<int> list_project;
+    int value;
+    list_project.InsFirst(1);
+    list_project.InsLast(2);
+    list_project.setPos(0);
+    ASSERT_NO_THROW(list_project.DelCurr());
+    value = list_project.Get_First();
+
+
+
+
+    EXPECT_EQ(2, value);
+}
+TEST(TList, can_delete_from_center_by_DelCurr)
+{
+    TList<int> list_project;
+    int value;
+    list_project.InsFirst(1);
+    list_project.InsLast(2);
+    list_project.InsLast(3);
+    list_project.setPos(1);
+    ASSERT_NO_THROW(list_project.DelCurr());
+    value = list_project.Get_pos_value(1);
+
+
+
+
+    EXPECT_EQ(3, value);
+}
+TEST(TList, can_delete_last_by_DelCurr)
+{
+    TList<int> list_project;
+    int value;
+    list_project.InsFirst(1);
+    list_project.InsLast(2);
+    list_project.InsLast(3);
+    list_project.setPos(2);
+    ASSERT_NO_THROW(list_project.DelCurr());
+    value = list_project.Get_Last();
+
+
+
+
+    EXPECT_EQ(2, value);
+
+}
 
