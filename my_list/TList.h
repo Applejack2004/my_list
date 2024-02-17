@@ -117,7 +117,7 @@ public:
 		}
 	}
 
-	inline void InsFirst(const T& _val)
+ inline  virtual void InsFirst(const T& _val)
 	{
 		if (pFirst == pStop)
 		{
@@ -153,7 +153,7 @@ public:
 		}
 		return (pCurr->value);
 	}
-	void InsLast(const T& _val)
+	inline virtual void InsLast(const T& _val)
 	{
 		if (pFirst == pStop)
 		{
@@ -189,7 +189,7 @@ public:
 	{
 		return (pFirst == pStop);
 	}
-	inline void DelCurr()
+	inline virtual void DelCurr()
 	{
 		if (pCurr == pFirst)
 		{
@@ -228,7 +228,7 @@ public:
 		}
 
 	}
-	 inline void DelFirst()
+	 inline virtual void DelFirst()
 	{
 		if (pFirst != pStop)
 		{
