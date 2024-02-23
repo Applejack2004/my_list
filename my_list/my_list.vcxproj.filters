@@ -15,10 +15,10 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="TList.h">
+    <ClInclude Include="THeadList.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="THeadList.h">
+    <ClInclude Include="TList.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>

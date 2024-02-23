@@ -46,7 +46,7 @@ public:
 	{
 		return (pStop == pCurr);
 	}
-	inline void DelList()//метод для очищения списка
+	 void DelList()//метод для очищения списка
 	{
 		TNode<T>* tmp;
 		while (pFirst != pStop)
@@ -117,7 +117,7 @@ public:
 		}
 	}
 
- inline  virtual void InsFirst(const T& _val)
+ virtual void InsFirst(const T& _val)
 	{
 		if (pFirst == pStop)
 		{
@@ -270,11 +270,32 @@ public:
 				tmp = tmp->pNext;
 			}
 			len = list_object.len;
-			pos = 0;
+			
 			Reset();
 		}
 		return *this;
 	}
+	friend std::ostream& operator<<(std::ostream& out, const TList<T>& list) {
+		TList<T> copyList = list;
+		copyList.Reset();
+
+		while (!copyList.IsEnd()) 
+		{
+			T value = copyList.Get_pos_value(copyList.Get_pos());
+			out << value << " ";
+			copyList.GoNext();
+		}
+
+		return out;
+
+	}
+	friend std::istream& operator>>(std::istream& in, TList<T>& list) {
+		T value;
+		in >> value;
+		list.InsCurr(value); // Предположим, что InsCurr добавляет элемент в текущую позицию списка
+		return in;
+	}
+
 	inline void setPos(int _pos)
 	{
 		if (_pos < 0 || _pos >= len)
@@ -289,5 +310,6 @@ public:
 	}
 
 };
+
 
 
