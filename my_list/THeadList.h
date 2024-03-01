@@ -1,56 +1,7 @@
 #pragma once
 #include "TList.h"
-template <class T>
-struct TMonom
-{
-	double Coef;
-	int index;
-	// Оператор сравнения ==
-	bool operator==(const TMonom& other) const {
-		return (Coef == other.Coef && index == other.index);
-	}
-	// Оператор сравнения !=
-	bool operator!=(const TMonom& other) const {
-		return !(*this == other);
-	}
-	// Оператор сравнения <
-	bool operator<(const TMonom& other) const {
-		if (index < other.index)
-		{
-			return true;
-		}
-		else
-		{
-			if (index == other.index)
-			{
-				return Coef < other.Coef;
-			}
-			else 
-			{
-				return false;
-			}
-		}
-	}
-	// Оператор сравнения >
-	bool operator>(const TMonom& other) const {
-		return !(*this < other);
-	}
 
-	// Оператор ввода
-	friend std::istream& operator>>(std::istream& cin, TMonom& monom) {
-		cin >> monom.Coef >> monom.index;
-		return cin;
-	}
 
-	// Оператор вывода
-	friend std::ostream& operator<<(std::ostream& cout, const TMonom& monom) {
-		int degx = monom.Index / 100;
-		int degy = monom.Index / 10;
-		int degz = monom.Index % 10;
-		cout  << monom.Coef <<"*X^("<<degx<<")Y^("<<degy<<")Z^("<<degz<<")";
-		return cout;
-	}
-};
 template <class T>
 class THeadList:public TList<T>
 {
@@ -129,14 +80,14 @@ public:
 		TList<T>::DelList();
 		delete pHead;
 	}
-	void InsFirst (const T& _val)override
+	virtual void InsFirst (const T& _val)override
 	{
 		TList<T>::InsFirst(_val);
 		pHead->pNext = pFirst;
 
 		
 	}
-	void DelFirst ()override
+	virtual void DelFirst ()override
 	{
 		TList<T>::DelFirst();
 		pHead->pNext = pFirst;

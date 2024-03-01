@@ -21,14 +21,14 @@ public:
 		pos = -1;
 		len = 0;
 	}; // онструктор по умолчанию
-	inline void Reset()//переставл€ет pCurr на начало
+	inline virtual void Reset()//переставл€ет pCurr на начало
 	{
 		pCurr = pFirst;
 		pPr = pStop;
 		pos = 0;
 
 	}
-	inline void GoNext()// передвигает pCurr на следующий элемент
+	inline virtual void GoNext()// передвигает pCurr на следующий элемент
 	{
 		if (pCurr != pStop)
 		{
@@ -42,11 +42,11 @@ public:
 			throw "This List is empty or current is not detected!";
 		}
 	}
-	inline bool IsEnd()//ѕроверка на тоё прошли ли до конца контейнера
+	inline virtual bool IsEnd()//ѕроверка на тоё прошли ли до конца контейнера
 	{
 		return (pStop == pCurr);
 	}
-	 void DelList()//метод дл€ очищени€ списка
+	virtual void DelList()//метод дл€ очищени€ списка
 	{
 		TNode<T>* tmp;
 		while (pFirst != pStop)
@@ -138,7 +138,7 @@ public:
 		}
 	
 	}
-	T Get_pos_value(int ind)
+	virtual T Get_pos_value(int ind)
 	{
 		if (ind >= len && ind < 0)
 		{
@@ -169,9 +169,22 @@ public:
 			len++;
 		}
 	}
+	void Set_val(T item)
+	{
+		pCurr->value = item;
+	}
 	T Get_First()
 	{
 		return pFirst->value;
+	}
+	virtual  T GetCurrentItem()
+	{
+		if (pCurr == pStop)
+		{
+			throw "error";
+
+		}
+		return pCurr->value;
 	}
 	T Get_Last()
 	{

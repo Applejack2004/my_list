@@ -129,11 +129,15 @@
   <ItemGroup>
     <ClInclude Include="THeadList.h" />
     <ClInclude Include="TList.h" />
+    <ClInclude Include="TMonom.h" />
+    <ClInclude Include="TPolinom.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="THeadList.cpp" />
     <ClCompile Include="TList.cpp" />
+    <ClCompile Include="TMonom.cpp" />
+    <ClCompile Include="TPolinom.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
