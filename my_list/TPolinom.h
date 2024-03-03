@@ -24,6 +24,7 @@ public:
 	}
 	TPolinom(TPolinom& q)
 	{
+		
 		TMonom h(0, -1);
 		pHead->value = h;
 		for (q.Reset(); !q.IsEnd(); q.GoNext())
@@ -84,6 +85,10 @@ public:
 			}
 			else
 			{
+				if (GetCurrentItem().Get_index() == -1)
+				{
+					break;
+				} 
 				result.pCurr->value.Coef += pCurr->value.Coef;
 				if (result.pCurr->value.Coef == 0)
 				{
@@ -189,7 +194,7 @@ public:
 			TMonom res = GetCurrentItem();
 			res.Coef *= monom.Coef;
 			int degx = (res.index / 100) + (monom.index / 100);
-			int degy = (res.index / 10)+(monom.index / 10);
+			int degy = ((res.index / 10)%10)+((monom.index / 10)%10);
 			int degz =(res.index % 10)+(monom.index % 10);
 			if (degx > 9 || degy > 9 || degz > 9)
 			{
@@ -214,14 +219,44 @@ public:
 		}
 		return result;
 	}
-	bool Monom_compare( TMonom& monom2)
+	bool operator==( TPolinom& q)
 	{
-		return (GetCurrentItem() > monom2);
+		
+		for (q.Reset(), Reset(); !q.IsEnd() && !IsEnd(); q.GoNext(), GoNext())
+		{
+			if (GetCurrentItem() != q.GetCurrentItem())
+				return false;
+
+			
+		}
+		if (IsEnd() != q.IsEnd())
+		{
+			return false;
+		}
+		return true;
 	}
-	//void sortpolinome()
-	//{
-	//	if 
-	//
-	//}
+	std::string ToString()
+	{
+		std::string res;
+		for (Reset(); !IsEnd(); GoNext())
+		{
+			TMonom monom = GetCurrentItem();
+			res+=monom.Monom_to_String();
+			if (pCurr->pNext != pStop)
+			{
+				res += '+';
+			}
+		}
+		return res;
+
+    }
+	friend std::ostream& operator<<(std::ostream& cout,  TPolinom& monom) {
+		
+		for (monom.Reset(); !monom.IsEnd(); monom.GoNext())
+		{
+			cout<< (monom.GetCurrentItem())<< ' ';
+		}
+		return cout;
+	}
 };
 

@@ -1,4 +1,4 @@
-#include "../my_list/THeadList.h"
+#include "../my_list/TPolinom.h"
 #include "gtest.h"
 
 TEST(THeadList, can_create_list)
@@ -8,9 +8,12 @@ TEST(THeadList, can_create_list)
 
 
 TEST(THeadList, can_insert_first)
-{    THeadList<int> list_project;
+{
+    THeadList<int> list_project;
     ASSERT_NO_THROW(list_project.InsFirst(1));
     int value = list_project.Get_First();
+
+
 
 
     EXPECT_EQ(1, value);

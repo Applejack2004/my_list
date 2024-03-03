@@ -6,7 +6,7 @@ struct TNode
 {
 	T value;
 	TNode<T>* pNext;
-	TNode() { pNext = nullptr; }
+	TNode() { pNext = nullptr;  }
 };
 template <class T>
 class TList
