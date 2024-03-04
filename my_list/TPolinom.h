@@ -8,7 +8,7 @@ class TPolinom:public THeadList<TMonom>
 public:
 	TPolinom() :THeadList<TMonom>::THeadList()
 	{
-		TMonom monom(1,0);
+		TMonom monom(0,-1);
 		pHead->value = monom;
 
 	}
@@ -104,15 +104,54 @@ public:
 		}
 		return result;
 	}
+	TPolinom& operator+=(TPolinom& q)
+	{
+		
+		Reset(); q.Reset();
+
+		while (!IsEnd())
+		{
+			if (q.pCurr->value > pCurr->value)
+			{
+				InsCurr(q.pCurr->value);
+				q.GoNext();
+			}
+			else if (q.pCurr->value < pCurr->value)
+			{
+				
+				GoNext();
+			}
+			else
+			{
+				if (GetCurrentItem().Get_index() == -1)
+				{
+					break;
+				}
+				pCurr->value.Coef += q.pCurr->value.Coef;
+				if (pCurr->value.Coef == 0)
+				{
+					DelCurr();
+					q.GoNext();
+				}
+				else
+				{
+					q.GoNext();
+					GoNext();
+				}
+			}
+		}
+		return *this;
+	}
 	TPolinom operator*(double coef)
 	{
 		TPolinom result(*this);
 		for (result.Reset(); !result.IsEnd(); result.GoNext())
 		{
-			TMonom currmonom = GetCurrentItem();
+			TMonom currmonom = result.GetCurrentItem();
 			currmonom.Coef *= coef;
 			result.Set_val(currmonom);
 		}
+		return result;
 	}
 	TPolinom operator-(TPolinom& q)
 	{
@@ -198,7 +237,7 @@ public:
 			int degz =(res.index % 10)+(monom.index % 10);
 			if (degx > 9 || degy > 9 || degz > 9)
 			{
-				throw " we cant multiply plynoms with deg>9!!!";
+				throw " we cant multiply polynoms with deg>9!!!";
 			}
 			else
 			{

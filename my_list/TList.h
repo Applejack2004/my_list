@@ -94,12 +94,14 @@ public:
 			if (pCurr == pFirst)
 			{
 				InsFirst(_val);
+				pPr = pFirst;
 			}
 			else
 			{ 
 			  if (pCurr == pStop && pPr == pLast)
 			  {
 				InsLast(_val);
+				pPr = pLast;
 
 			  }
 			  else
@@ -207,6 +209,8 @@ public:
 		if (pCurr == pFirst)
 		{
 			DelFirst();
+			pPr = pStop;
+			pCurr = pFirst;
 		}
 		else
 
