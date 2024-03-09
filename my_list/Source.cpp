@@ -2,51 +2,85 @@
 #include "TList.h"
 #include "TPolinom.h"
 #include "TMonom.h"
+#include<vector>
+
+TPolinom Polinomoperation(std::string& operation, std::vector<TPolinom>& polyVector)
+{
+	size_t pos = operation.find_first_of("+-*="); // Ищем позицию любого из символов "+", "-", "*", "="
+
+	if (pos != std::string::npos && pos > 0 && pos < operation.size() - 1)
+	{
+		char operationChar = operation[pos]; // Получаем символ операции
+		int index1;
+		int index2;
+		if (operation[pos + 1] == '=')
+		{
+			operationChar = '=';
+			pos++;
+			index1 = std::stoi(operation.substr(1, pos - 2)) - 1;
+			index2 = std::stoi(operation.substr(pos + 1, operation.size())) - 1;
+		}
+		else
+		{
+			index1 = std::stoi(operation.substr(1, pos - 1)) - 1;
+			index2 = std::stoi(operation.substr(pos + 1, operation.size())) - 1;
+
+		}
+
+		TPolinom result;
+		// Извлекаем индексы из строки операции
+
+
+		if (index1 >= 0 && index1 < polyVector.size() && index2 >= 0 && index2 < polyVector.size())
+		{
+
+			switch (operationChar)
+			{
+
+			case '+':
+				//result = P1 + P2;
+				return polyVector[index1] + polyVector[index2];
+			case '-':
+				//result = P1 - P2;
+				return polyVector[index1] - polyVector[index2];
+			case '*':
+				//result = P1 * P2;
+				return polyVector[index1] * polyVector[index2];
+			case '=':
+				//result = P1 += P2;
+				return polyVector[index1] += polyVector[index2];
+			default:
+				std::cout << "Unsupported operation." << std::endl;
+				//f = 1;
+			}
+		}
+		else
+		{
+			std::cout << "Invalid polynomial index." << std::endl;
+			//f = 1;
+		}
+	}
+	else
+	{
+		std::cout << "Invalid operation format." << std::endl;
+		//f = 1;
+	}
+
+	return TPolinom(); // Возвращаем пустой полином, если операция не выполнена успешно
+}
 int main()
 {
-   
-    
-   // int masres[][2] = { {3,934},{8,235 },{-1,123 },{17,120 } };
-   // int mas[][2] = { {8,235},{-3,231},{-6,123 },{9,120 } };
-   // int mas1[][2] = { {3,934},{3,231},{5,123 }, {8,120 } };
-   // TPolinom pol_project1(mas, 4);
-   // TPolinom pol_project2(mas1, 4);
-   // TPolinom pol_project(masres, 4);
-   //// std::cout << pol_project1;
-   //res = pol_project1 + pol_project2;
-    //TPolinom res;
-    //int masres[][2] = { {-6,231},{1,123 } };
-    //int mas[][2] = { {5,234},{-3,231},{2,123 } };
-    //int mas1[][2] = { {5,234},{3,231},{1,123 } };
-    //TPolinom pol_project1(mas, 3);
-    //TPolinom pol_project2(mas1, 3);
-    //TPolinom pol_project(masres, 2);
+	std::string a = "2x^1y^1z^1";
+	std::string b = "3x^1y^1z^1";
+	std::string ab = " 1*2";
+	TPolinom p1(a),p2(b);
+	//std::cout << p1;
+	std::vector<TPolinom> V;
+	V.push_back(p1);
+	V.push_back(p2);
+	V.push_back(p2);
+	 TPolinom res=Polinomoperation(ab, V);
+	std::cout<<res<<std::endl;
+	std::cout<<V.size();
 
-    //res = pol_project1 - pol_project2;
-    TPolinom res;
-    int masres[][2] = { {25,468},{-9,462 },{ 2,246} };
-    int mas[][2] = { {5,234},{-3,231},{2,123 } };
-    int mas1[][2] = { {5,234},{3,231},{1,123 } };
-    TPolinom pol_project1(mas, 3);
-    TPolinom pol_project2(mas1, 3);
-    TPolinom pol_project(masres, 3);
-
-    res = pol_project1 * pol_project2;
-
-
-
-   pol_project == res;
-
-   // res = pol_project1 - pol_project2;
-    std::string a = res.ToString(); int ind;
-  //for (pol_project.Reset(); !pol_project.IsEnd(); pol_project.GoNext())
-  //{
-  //    ind = pol_project.GetCurrentItem().Get_index();
-  //    std::cout << ind;
-
-  //}
-  
-     bool equal=pol_project == res;
-    std::cout << a << std::endl;
-     std::cout << equal;
 }

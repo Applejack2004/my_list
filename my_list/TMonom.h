@@ -16,6 +16,11 @@ public:
 		Coef = 0;
 		index = 0;
 	}
+	TMonom(const TMonom& m)
+	{
+		Coef = m.Coef;
+		index = m.index;
+	}
 	int Get_index()
 	{
 		return index;

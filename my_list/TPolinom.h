@@ -6,13 +6,13 @@
 class TPolinom:public THeadList<TMonom>
 {
 public:
-	TPolinom() :THeadList<TMonom>::THeadList()
+	 TPolinom() :THeadList<TMonom>::THeadList()
 	{
 		TMonom monom(0,-1);
 		pHead->value = monom;
 
 	}
-	TPolinom(int monoms[][2], int km)
+	 TPolinom(int monoms[][2], int km)
 	{
 		TMonom  pMonom (0, -1);
 		pHead->value=pMonom;
@@ -22,17 +22,17 @@ public:
 			InsLast(monom);
 		}
 	}
-	TPolinom(TPolinom& q)
-	{
-		
-		TMonom h(0, -1);
-		pHead->value = h;
-		for (q.Reset(); !q.IsEnd(); q.GoNext())
-		{
-			TMonom monom = q.GetCurrentItem();
-			InsLast(monom); 
-		}
-	}
+	// TPolinom( TPolinom& q)
+	//{
+	//	 
+	//	TMonom h(0, -1);
+	//	pHead->value = h;
+	//	for (q.Reset(); !q.IsEnd(); q.GoNext())
+	//	{
+	//		TMonom monom = q.GetCurrentItem();
+	//		InsLast(monom); 
+	//	}
+	//}
 	TPolinom& operator =(TPolinom& q)
 	{
 		DelList();
@@ -67,9 +67,10 @@ public:
 			InsCurr(m);
 		}
 	}
-	TPolinom operator+(TPolinom& q)
+	TPolinom operator+(  TPolinom& q)
 	{
 		TPolinom result(q);
+		
 		Reset(); result.Reset();
 
 		while (!IsEnd())
@@ -167,6 +168,7 @@ public:
 		{
 			if (str[i] == ' ' || str[i] == '+')
 			{
+				i++;
 				continue;
 			}
 			std::string coef;
@@ -216,12 +218,16 @@ public:
 			{
 				throw "Error:Bad polinom!";
 			}
-			if ((!degx.empty()) && (!degy.empty()) && (!degz.empty()))
-			{
-				degpolinom = degx + degy + degz;
-				deg = std::stoi(degpolinom);
-				AddMonom(TMonom(_coef, deg));
-			}
+			       if ((!degx.empty()) && (!degy.empty()) && (!degz.empty()))
+			       {
+				      degpolinom = degx + degy + degz;
+				      deg = std::stoi(degpolinom);
+				      AddMonom(TMonom(_coef, deg));
+			       }
+				   else
+				   {
+					   throw "Error:Bad polinom!";
+				   }
 		}
 
 	}
@@ -283,7 +289,7 @@ public:
 			res+=monom.Monom_to_String();
 			if (pCurr->pNext != pStop)
 			{
-				res += '+';
+				res += "+";
 			}
 		}
 		return res;

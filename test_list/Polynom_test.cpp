@@ -122,3 +122,21 @@ TEST(TPolinom, can_multiply_polinom_on_const)
 
     EXPECT_TRUE(pol_project2 == res);
 }
+TEST(TPolinom, can_creat_polinom__by_string)
+{
+    std::string a = "3x^2y^3z^2 + 4x^0y^1z^2";
+    std::string b = "5x^0y^0z^1 + -1x^3y^2z^0";
+    TPolinom p1(a),p2(b),ans;
+
+    ans.AddMonom(TMonom(15, 233));
+    ans.AddMonom(TMonom(-3, 552));
+    ans.AddMonom(TMonom(20, 13));
+    ans.AddMonom(TMonom(-4, 332));
+
+
+
+
+
+
+    EXPECT_TRUE(p1*p2 ==ans);
+}

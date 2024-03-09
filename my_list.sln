@@ -7,6 +7,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "my_list", "my_list\my_list.
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "test_list", "test_list\test_list.vcxproj", "{576C3BAB-C297-459A-BD73-C58888132B40}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "calculator_of_polynoms", "calculator_of_polynoms\calculator_of_polynoms.vcxproj", "{DD76872D-A190-4746-BF0D-B3BCDDC5E1FD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -31,6 +33,14 @@ Global
 		{576C3BAB-C297-459A-BD73-C58888132B40}.Release|x64.Build.0 = Release|x64
 		{576C3BAB-C297-459A-BD73-C58888132B40}.Release|x86.ActiveCfg = Release|Win32
 		{576C3BAB-C297-459A-BD73-C58888132B40}.Release|x86.Build.0 = Release|Win32
+		{DD76872D-A190-4746-BF0D-B3BCDDC5E1FD}.Debug|x64.ActiveCfg = Debug|x64
+		{DD76872D-A190-4746-BF0D-B3BCDDC5E1FD}.Debug|x64.Build.0 = Debug|x64
+		{DD76872D-A190-4746-BF0D-B3BCDDC5E1FD}.Debug|x86.ActiveCfg = Debug|Win32
+		{DD76872D-A190-4746-BF0D-B3BCDDC5E1FD}.Debug|x86.Build.0 = Debug|Win32
+		{DD76872D-A190-4746-BF0D-B3BCDDC5E1FD}.Release|x64.ActiveCfg = Release|x64
+		{DD76872D-A190-4746-BF0D-B3BCDDC5E1FD}.Release|x64.Build.0 = Release|x64
+		{DD76872D-A190-4746-BF0D-B3BCDDC5E1FD}.Release|x86.ActiveCfg = Release|Win32
+		{DD76872D-A190-4746-BF0D-B3BCDDC5E1FD}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
