@@ -51,7 +51,7 @@ namespace calculatorofpolynoms {
 		}
 		TPolinom Polinomoperation(std::string& operation, std::vector<TPolinom>& polyVector)
 		{
-			size_t pos = operation.find_first_of("+-*="); // »щем позицию любого из символов "+", "-", "*", "="
+			size_t pos = operation.find_first_of("+-*"); // »щем позицию любого из символов "+", "-", "*", "="
 			int count = count_oper(operation);
 			if (count > 1)
 			{
@@ -73,8 +73,19 @@ namespace calculatorofpolynoms {
 					}
 					else
 					{
-						 index1 = std::stoi(operation.substr(0, pos - 1)) - 1;
-						 index2 = std::stoi(operation.substr(pos + 1, operation.size())) - 1;
+						if (operation[pos+1] == '(')
+						{
+							operationChar = '(';
+							pos++;
+
+							index1 = std::stoi(operation.substr(0, pos - 2)) - 1;
+							index2 = std::stoi(operation.substr(pos + 1, operation.size()-1));
+						}
+						else
+						{
+							index1 = std::stoi(operation.substr(0, pos - 1)) - 1;
+							index2 = std::stoi(operation.substr(pos + 1, operation.size())) - 1;
+						}
 
 					}
 				
@@ -88,23 +99,27 @@ namespace calculatorofpolynoms {
 					switch (operationChar)
 					{
 
-					case '+':
+					 case '+':
 						//result = P1 + P2;
 						f = 0;
 						return polyVector[index1] + polyVector[index2];
-					case '-':
+					 case '-':
 						f = 0;
 						//result = P1 - P2;
 						return polyVector[index1] - polyVector[index2];
-					case '*':
+					 case '*':
 						f = 0;
 						//result = P1 * P2;
 						return polyVector[index1] * polyVector[index2];
-					case '=':
+					 case '=':
 						f = 0;
 						//result = P1 += P2;
 						return polyVector[index1] += polyVector[index2];
-					default:
+					 case '(':
+						f = 0;
+						return polyVector[index1] * index2;
+					 default:
+
 						label4->Text = "Unsupported operation!";
 						f = 1;
 					}
