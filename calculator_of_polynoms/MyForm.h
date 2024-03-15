@@ -36,8 +36,10 @@ namespace calculatorofpolynoms {
 			int count = 0;
 
 			for (int i = 0; i < s.size(); i++)
+			{
 				if (s[i] == '+' || s[i] == '-' || s[i] == '*') count++;
-
+				if (s[i + 1] == '(') count--;
+			}
 			return count;
 		}
 		void doSom()
@@ -59,7 +61,7 @@ namespace calculatorofpolynoms {
 				f = 1;
 				return TPolinom();
 			}
-			if (pos != std::string::npos && pos > 0 && pos < operation.size() - 1)
+			if (pos != std::string::npos && pos >= 0 && pos < operation.size() - 1)
 			{
 				char operationChar = operation[pos]; // Получаем символ операции
 				int index1;
@@ -93,7 +95,7 @@ namespace calculatorofpolynoms {
 				// Извлекаем индексы из строки операции
 				
 
-				if (index1 >= 0 && index1 < polyVector.size() && index2 >= 0 && index2 < polyVector.size())
+				if (index1 >= 0 && index1 < polyVector.size())
 				{
 
 					switch (operationChar)
@@ -114,7 +116,11 @@ namespace calculatorofpolynoms {
 					 case '=':
 						f = 0;
 						//result = P1 += P2;
-						return polyVector[index1] += polyVector[index2];
+						polyVector[index1] += polyVector[index2];
+						dataGridView1[1,index1]->Value = gcnew String(polyVector[index1].ToString().c_str());
+						//dataGridView1->CurrentRow->Cells[0]->Value = str;
+			
+						return polyVector[index1];
 					 case '(':
 						f = 0;
 						return polyVector[index1] * index2;
@@ -419,9 +425,9 @@ private: System::Void dataGridView1_CellContentClick(System::Object^ sender, Sys
 private: System::Void button2_Click(System::Object^ sender, System::EventArgs^ e) {
 		std::string inf;  //std::string ind = std::to_string(i);
 		inf = msclr::interop::marshal_as<std::string>(textBox2->Text);
-		if (V.size() < 2)
+		if (V.size() < 1)
 		{
-			throw  "Need at least 2 polynomials in the vector." ;
+			throw  "Need at least 1 polynomials in the vector." ;
 
 		}
 		TPolinom res = Polinomoperation(inf, V);

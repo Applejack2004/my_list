@@ -103,9 +103,10 @@ TPolinom Polinomoperation(std::string& operation, std::vector<TPolinom>& polyVec
 }
 int main()
 {
-	std::string a = "2x^1y^1z^1 + 3x^2y^3z^1 + 1x^1y^1z^0";
+	////std::string a = "2x^1y^1z^1 + 3x^2y^3z^1 + 1x^1y^1z^0";
+	std::string a = "5x^0y^0z^1 + -1x^3y^2z^0";
 	std::string b = "3x^1y^1z^1";
-	std::string ab = " 1 *(2)";
+	std::string ab = " 2 *(2)";
 	TPolinom p1(a),p2(b);
 	//std::cout << p1;
 	std::vector<TPolinom> V;
